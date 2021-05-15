@@ -40,7 +40,7 @@ export default function Nominering(){
             Trykk på "nominér" for å nominere en kandidat. Kandidaten vil da bli registrert for avstemming.
             <br/>
             Hvis du ønsker å avgi stemme på en allerede nominert bruker, kan du gå til: 
-            {gjeldeneBruker && <a className="nomList"><NavLink to="/Avstemming"> Avstemming</NavLink></a>}
+            {gjeldeneBruker && <a className="nomList" href=""><NavLink to="/Avstemming"> Avstemming</NavLink></a>}
             </p>
         { brukere && brukere.map(bruker => {
         return(
