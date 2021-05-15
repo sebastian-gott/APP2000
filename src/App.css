@@ -1,0 +1,98 @@
+.App {
+  text-decoration: none;
+}
+
+nav ul a,
+nav .brand-logo {
+  color: white;
+}
+
+.sidenav-trigger {
+  color: white;
+}
+
+a:hover {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn {
+  margin: 1vw;
+  background-color: #311b92;
+}
+
+.loggutKnapp {
+  margin: 1.5vh;
+  background-color: #4a3997;
+}
+
+.btn:hover {
+  background-color: #2e06e0;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type="text"]:not(.browser-default):focus:not([readonly]),
+input[type="password"]:not(.browser-default):focus:not([readonly]),
+input[type="email"]:not(.browser-default):focus:not([readonly]),
+input[type="url"]:not(.browser-default):focus:not([readonly]),
+input[type="time"]:not(.browser-default):focus:not([readonly]),
+input[type="date"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime-local"]:not(.browser-default):focus:not([readonly]),
+input[type="tel"]:not(.browser-default):focus:not([readonly]),
+input[type="number"]:not(.browser-default):focus:not([readonly]),
+input[type="search"]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #321aa0a6;
+  -webkit-box-shadow: 0 1px 0 0 #321aa0a6;
+  box-shadow: 0 1px 0 0 #321aa0a6;
+}
+
+.row {
+  margin: auto !important;
+}
+
+#blah {
+  width: 50%;
+  object-fit: cover;
+}
+
+.nominerKort {
+  width: 400px;
+}
+
+.nominerKort p {
+  float: left;
+  margin-right: 5px;
+  height: auto;
+}
+
+.float-right {
+  float: right;
+  margin-top: 18px;
+}
+
+.width-margin  {
+  
+  width: 400px !important;
+  
+  
+
+}
+@media only screen and (max-width: 600px) {
+  .width-margin {
+    width: 300px !important;
+    margin: 0 10px 10px 0;
+  }
+}
+
+
+
+.nomList {
+  list-style: none;
+}
+
+.nomList :hover {
+  color: #311b92;
+}
