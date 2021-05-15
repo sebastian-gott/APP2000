@@ -42,7 +42,7 @@ export function Home(){
                 <br/>
                 <strong>Email: </strong> {gjeldeneBruker.email}
                 
-                
+    
             <img src= {poster} width="100%" height="auto" alt="poster"/>
 
             
