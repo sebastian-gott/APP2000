@@ -17,7 +17,7 @@ export function Registrering() {
   
   
   //Setter i bruk useAuth funksjonen i authContext
-  const { registrer, sjekkEpost, errors} = useAuth()
+  const { registrer, sjekkEpost} = useAuth()
   //Feilmelding state som kan settes der feilmeldinger trenges
   const [error, setError] = useState("")
   //Får å disable ulike ting mens siden loader
@@ -56,23 +56,27 @@ export function Registrering() {
         history.push("/Logginn")
       }, 3000);
 
-    }catch(registrer){
-      setError("test")
-    }
-
-    
       // Setter en timeout slik at eposten blir lagt i databasen før den forsøker å sende epost
       //Sjekker om eposten finnes og sender en aktiverings epost.
     sjekkEpost()
+    if(sjekkEpost){
+      return setError("Verifiserings mail er sendt til din email"); 
+    }else{ 
+        setError("Din email er ikke en gyldig USN email.");
+      }
+    } catch {
+      //Alle feil som ikke har blitt laget feilmelding til går her
+      setError("Registrering mislykkes")
+    }
+    //Stopper loadinger etter alt har gått gjennom
+    setLoading(false)
   }
-      
-  
+    
       return ( 
     <div className="App" >
       <div class="row">
             <div className="col s12 offset-m4 m4 card-panel">
                 <h2>Registrer</h2>
-                {errors && <p>{errors}</p>}
                 {error && <p>{error}</p>}
                 <form action="" className="col s12" onSubmit= {handleSubmit} >
                     

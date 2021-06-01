@@ -17,7 +17,8 @@ function App() {
     <BrowserRouter>
     <div className="App">
     <Navbar />
-      <Switch>   
+      <Switch>
+      
         <PrivateRoute exact path='/' component={Home} />
         <PrivateRoute path='/Avstemming' component={Avstemming} />
         <PrivateRoute path='/Nominering' component={Nominering} />

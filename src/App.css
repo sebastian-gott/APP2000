@@ -1,15 +1,10 @@
+.App {
+  text-decoration: none;
+}
+
 nav ul a,
 nav .brand-logo {
   color: white;
-}
-
-.sidenav {
-  background-color: #f6f6f8;
-  height: 40%;
-}
-
-.sidenav a:hover {
-  color: #311b92;
 }
 
 .sidenav-trigger {
@@ -25,13 +20,11 @@ a:hover {
 .btn {
   margin: 1vw;
   background-color: #311b92;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
 .loggutKnapp {
   margin: 1.5vh;
   background-color: #4a3997;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
 .btn:hover {
@@ -54,46 +47,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid #321aa0a6;
   -webkit-box-shadow: 0 1px 0 0 #321aa0a6;
   box-shadow: 0 1px 0 0 #321aa0a6;
-}
-
-.stor-text {
-  color: white;
-  background-color: #311b92;
-  text-align: center;
-  height: auto;
-  width: auto;
-  margin-right: 15px;
-  margin-left: 15px;
-  margin-top: 25px;
-  margin-bottom: 25px;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  font-size: 20px;
-  font-weight: bold;
-  color: floralwhite;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  box-shadow: 10px 10px grey;
-}
-
-.liten-text {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  font-size: 16px;
-  color: #000000;
-  text-align: center;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.backgroundposter {
-  background: antiquewhite;
-  padding-top: 144px;
-  padding-bottom: 144px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 70%;
-  margin-top: 80px;
-  border-radius: 25px;
-  box-shadow: 10px 10px grey;
 }
 
 .row {
@@ -120,21 +73,21 @@ textarea.materialize-textarea:focus:not([readonly]) {
   margin-top: 18px;
 }
 
-.width-margin {
+.width-margin  {
+  
   width: 400px !important;
+  
+  
+
 }
 @media only screen and (max-width: 600px) {
   .width-margin {
     width: 300px !important;
     margin: 0 10px 10px 0;
   }
-  .stor-text {
-    font-size: 140%;
-  }
-  .liten-text {
-    font-size: 120%;
-  }
 }
+
+
 
 .nomList {
   list-style: none;
@@ -142,9 +95,4 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 .nomList :hover {
   color: #311b92;
-}
-
-.myProfile {
-  margin-top: 20px;
-  margin-left: 12px;
 }
