@@ -25,13 +25,13 @@ a:hover {
 .btn {
   margin: 1vw;
   background-color: #311b92;
-  
+
 }
 
 .loggutKnapp {
   margin: 1.5vh;
   background-color: #4a3997;
-
+ 
 }
 
 .btn:hover {
@@ -66,7 +66,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
   margin-left: 15px;
   margin-top: 25px;
   margin-bottom: 25px;
-  
   font-size: 20px;
   font-weight: bold;
   color: floralwhite;
@@ -76,7 +75,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 
 .liten-text {
-  
   font-size: 16px;
   color: #000000;
   text-align: center;

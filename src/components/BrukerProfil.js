@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { Link, useHistory } from "react-router-dom"
-import { storage } from "../server/firebase";
+import { storage, db } from "../server/firebase";
 
 
 
@@ -10,6 +10,7 @@ export default function App() {
     const { uploadBilde } = useAuth();
     const [error, setError] = useState("");
     const [checked, setChecked] = useState(false);
+    const [erNominert, setErNominert] = useState()
     //Får å disable ulike ting mens siden loader
     const [loading, setLoading] = useState(false);
     const { gjeldeneBruker, oppdaterMail, oppdaterPassord, oppdaterFNavn, oppdaterENavn, oppdaterNom, oppdaterBeskrivelse, nominerbarDisplay, fornavnDisplay, etternavnDisplay } = useAuth();
@@ -46,6 +47,20 @@ export default function App() {
       setChecked(e.target.checked)
    console.log(checked)
     }
+
+    useEffect(() => {
+      const unsub = db.collection('BrukerInfo').doc(gjeldeneBruker.uid)
+      .onSnapshot(function (doc){
+          const nomSjekk = doc.data().Nominert;
+          //console.log(stemmeSjekk)
+          if(nomSjekk === true){
+              setErNominert(nomSjekk)
+          }
+          return unsub
+      })
+      
+      
+  }, [])
 
 //console.log(gjeldeneBruker)
     async function handleSubmit(e) {
@@ -199,7 +214,7 @@ export default function App() {
                     <button disabled={loading} type="submit" className="btn waves-effect waves-light right">Oppdater info</button>
                     <Link to="/">Avslutt</Link>
                 </form>
-                <form action="" className="col s12" onSubmit={handleNominationChange}>
+                {!erNominert && <form action="" className="col s12" onSubmit={handleNominationChange}>
                 <p>
                           <label>
                             <input type="checkbox" className="" onChange={handleNominer} ref={nomineringRef} />
@@ -208,7 +223,7 @@ export default function App() {
                           </label>
                           <button disabled={loading} type="submit" className="btn waves-effect waves-light right">Endre Nominering</button>
                 </p>
-                </form>
+                </form>}
 
                 <form action="" className="col s12" onSubmit= {handlePictureUpload}>
                 <h5>Last opp/endre profilbilde: </h5>
