@@ -28,31 +28,38 @@ export function AuthProvider({ children }) {
   const [errors, setError] = useState("")
   
 
-function stemBruker(id) {
-  return db.collection("NominerteBrukere")
-  .doc(id)
-  .update({
-    antallStemmer: firebase.firestore.FieldValue.increment(1)
-  })
-}
-
-function brukerHarStemt(id) {
+function stemBruker(id, valueChange) {
   return db.collection("BrukerInfo")
   .doc(id)
   .update({
-    harStemt: true
+    antallStemmer: firebase.firestore.FieldValue.increment(valueChange)
+  })
+}
+
+
+function brukerHarStemt(id, booleanParam) {
+  return db.collection("BrukerInfo")
+  .doc(id)
+  .update({
+    harStemt: booleanParam
+  })
+}
+
+function votedOn(id, stemtId) {
+  return db.collection("BrukerInfo")
+  .doc(id)
+  .update({
+    votedOn: stemtId
   })
 }
 
  
-function nominerBruker(fornavn, etternavn, id){
-  return db.collection("NominerteBrukere")
+async function nominerBruker(id, fornavn, etternavn){
+  await db.collection("BrukerInfo")
   .doc(id)
-  .set({
-    Fornavn: fornavn,
-    Etternavn: etternavn,
-    id: id ,
-    antallStemmer: 0
+  .update({
+    Nominert: true,
+    Nominerbar: false
   })
   .then(() => {
     console.log(fornavn + " " + etternavn + " er nominert")
@@ -62,37 +69,34 @@ function nominerBruker(fornavn, etternavn, id){
   })
 }
 
-function setNominerbar(id){
-  return db.collection("BrukerInfo")
-  .doc(id)
-  .update({
-    Nominerbar: false
-  })
-    .then(()=> {
-      console.log("Nominerbar er satt til false")
-    })
-    .then((error) =>{
-      console.log("Kunne ikke endre nominerbar")
-    })
-}
-
 //Henter inn informasjon fra registering og legger det inn i firebase
   function registrer(email, password, fornavn, etternavn, nominerbar) {
     auth.createUserWithEmailAndPassword(email, password).then( cred => {
       return db.collection('BrukerInfo').doc(cred.user.uid).set({
+        Email: email, 
         Fornavn: fornavn,
         Etternavn: etternavn,
         Nominerbar: nominerbar,
         beskrivelse: null,
         id: cred.user.uid,
-        harStemt: false
-
-        
-      })
-      
-    })
-    
+        harStemt: false,
+        votedOn:"",
+        antallStemmer: 0,
+        Nominert: false
+      })  
+    }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      if(errorCode == "auth/email-already-in-use"){
+        setError(errorMessage)
+    } else {
+      setError(errorMessage);
+    }
+    console.log(error);
+  });
+  setError("")
   }
+
 
   function logginn(email, password) {
     return auth.signInWithEmailAndPassword(email, password)
@@ -144,18 +148,20 @@ function oppdaterBeskrivelse(beskrivelse) {
 
 function sjekkEpost() {
   setTimeout(() => {
+    if(registrer() === false){
+      setError("Feil")
+    }
     var user = firebase.auth().currentUser;
     user.sendEmailVerification().then(function() {
-      return setError("Aktiverings epost er sendt til din epost")// Email sent.
-    }).catch(function(errors) {
-      // An error happened.
-      return setError("Dette er ikke en aktiv usn epost")
+      setError("Aktiverings epost er sendt til din epost")// Email sent.
+    }).catch(function(err) {
+  
+      
     });      
-    
-    
+    console.log(user.sendEmailVerification());
+
   }, 2000);
 }
-
 
   
   //useEffect: Når noe skjer vil vi at en bivirkning skal skje
@@ -163,7 +169,6 @@ function sjekkEpost() {
   //3. Unsubscribe gjør slik at etter eventen har skjedd, stopper serveren å lytte til den
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
-      /*console.log(user);*/
       setGjeldeneBruker(user)
       if(user) {
         setTimeout(() => {
@@ -179,9 +184,10 @@ function sjekkEpost() {
       }, 500);
       }
       setLoading(false)
+      return unsubscribe
     })
 
-    return unsubscribe
+    
   }, [])
 
   //Ulike verdier man gir Provider tilgang til å lytte etter
@@ -203,12 +209,10 @@ function sjekkEpost() {
     oppdaterNom,
     oppdaterBeskrivelse,
     nominerBruker,
-    setNominerbar,
     stemBruker,
     brukerHarStemt,
     sjekkEpost,
-    
-    
+    votedOn
   }
 
   return (

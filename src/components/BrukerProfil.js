@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../context/authContext";
 import { Link, useHistory } from "react-router-dom"
+import { storage } from "../server/firebase";
 
 
 
@@ -11,7 +12,7 @@ export default function App() {
     const [checked, setChecked] = useState(false);
     //Får å disable ulike ting mens siden loader
     const [loading, setLoading] = useState(false);
-    const { gjeldeneBruker, oppdaterMail, oppdaterPassord, oppdaterFNavn, oppdaterENavn, oppdaterNom, oppdaterBeskrivelse, nominerbarDisplay } = useAuth();
+    const { gjeldeneBruker, oppdaterMail, oppdaterPassord, oppdaterFNavn, oppdaterENavn, oppdaterNom, oppdaterBeskrivelse, nominerbarDisplay, fornavnDisplay, etternavnDisplay } = useAuth();
     const fornavnRef = useRef()
     const etternavnRef = useRef()
     const emailRef = useRef()
@@ -21,6 +22,17 @@ export default function App() {
     const nomineringRef = useRef()
     const bildeRef = useRef()
     const history = useHistory()
+    const [picUrl, setPicUrl] = useState()
+
+    
+   
+
+    storage.ref('brukere/' + gjeldeneBruker.uid + '/profile.jpg').getDownloadURL().then((url) => {
+        setPicUrl(url);
+        gjeldeneBruker.updateProfile({
+          photoURL: picUrl
+        })
+       })
     
     //Sjekker om Eposten har usn.no i seg
     var reg = /^\w+([-+.']\w+)*@(usn.no)/
@@ -74,8 +86,7 @@ export default function App() {
         await regler.push(oppdaterBeskrivelse(beskrivelseRef.current.value))
       }
 
-        await uploadBilde(file);
-        await oppdaterNom(checked);
+
         } catch {
           setError("Opplastning mislykkes")
         }
@@ -107,7 +118,16 @@ export default function App() {
     return (
     <div className="App">
         <div className="row">
-            <div className="col s12 offset-m4 m4 card-panel">
+        
+              <div className="col l2 push-s1 width-margin m5 card-panel myProfile">
+                <h3>Profil</h3>
+                {gjeldeneBruker.photoURL && <img src={ gjeldeneBruker.photoURL } width="100" height="100" alt="avatar" className="circle z-depth-2"/> }
+                <p>Fornavn: {fornavnDisplay}</p>
+                <p>Etternavn: {etternavnDisplay}</p>
+                <p>Email: {gjeldeneBruker.email}</p>
+              </div>
+            
+            <div className="col s12 offset-m1 m4 card-panel">
             {/*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" />*/}
 
                 <h3>Oppdater profil</h3>
