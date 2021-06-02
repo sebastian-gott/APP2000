@@ -41,7 +41,7 @@ function Logginn(){
     return ( 
     <div className="App">
         <div class="row">
-            <div className="col s12 offset-m4 m4 card-panel">
+            <div className="col s12 offset-m4 m4 card-panel loginPanel">
                 <h2>Logg inn</h2>
                 {error && <p>{error}</p>}
                 <form onSubmit={handleSubmit} className="col s12">

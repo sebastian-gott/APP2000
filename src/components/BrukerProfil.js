@@ -134,18 +134,17 @@ export default function App() {
     <div className="App">
         <div className="row">
         
-              <div className="col l2 push-s1 width-margin m5 card-panel myProfile">
-                <h3>Profil</h3>
-                {gjeldeneBruker.photoURL && <img src={ gjeldeneBruker.photoURL } width="100" height="100" alt="avatar" className="circle z-depth-2"/> }
-                <p>Fornavn: {fornavnDisplay}</p>
-                <p>Etternavn: {etternavnDisplay}</p>
-                <p>Email: {gjeldeneBruker.email}</p>
+              <div className="col card-panel myProfile">
+                {gjeldeneBruker.photoURL && <img src={ gjeldeneBruker.photoURL } width="100" height="100" alt="avatar" className="circle z-depth-2 profiBilde"/> }
+                <h5>Hei {fornavnDisplay} ha en strålende dag!</h5>
+                <p className="profilStorTekst">{fornavnDisplay}  {etternavnDisplay}</p>
+                <p>{gjeldeneBruker.email}</p>
               </div>
             
             <div className="col s12 offset-m1 m4 card-panel">
             {/*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" />*/}
 
-                <h3>Oppdater profil</h3>
+                <h3 className="tittel-tekst">Oppdater profil</h3>
                 {error && <p>{error}</p>}
                 <form action="" className="col s12" onSubmit= {handleSubmit} >
                
@@ -226,7 +225,7 @@ export default function App() {
                 </form>}
 
                 <form action="" className="col s12" onSubmit= {handlePictureUpload}>
-                <h5>Last opp/endre profilbilde: </h5>
+                <h5 className="tittel-tekst">Last opp/endre profilbilde: </h5>
                         <input type="file" id="imgInp" onChange={handleChange} ref={bildeRef}/>
                         <button disabled={loading} type="submit" className="btn waves-effect waves-light right">Last opp bilde</button>
                 </form>

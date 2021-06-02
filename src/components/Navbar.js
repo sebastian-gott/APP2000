@@ -2,7 +2,7 @@ import { NavLink, withRouter, useHistory } from 'react-router-dom';
 import React, {useEffect, useState } from 'react'
 import { useAuth } from '../context/authContext'
 import M from 'materialize-css';
-import Logo from '../USN_logo_rgb_neg.png'
+import Logo from '../USN_logo_rgb_1.png'
 
 
 const Navbar = () => {
@@ -27,10 +27,10 @@ const Navbar = () => {
     } if(!gjeldeneBruker){
         return (
       <div className="App">
-        <nav className="deep-purple darken-4">  
+        <nav className="white">  
           <div className="nav-wrapper container nav">
         
-            <a id="logo-container" href="/" className="brand-logo">USN-valget</a>
+          <a id="logo-container" href="/" className="brand-logo"><img src={Logo} alt="logo" width="218.6" height="49.3" /></a>
             <a href="#" data-target="nav-mobile" className="sidenav-trigger"><i className="material-icons">menu</i></a>
               <div className="">
                 <ul className="right hide-on-med-and-down">
@@ -54,10 +54,10 @@ const Navbar = () => {
     return ( 
       
     <div className="App">
-      <nav className="deep-purple darken-4">  
+      <nav className="white">  
       <div className="nav-wrapper container nav">
         
-      <a id="logo-container" href="/" className="brand-logo">USN-valget</a>
+      <a id="logo-container" href="/" className="brand-logo"><img src={Logo} alt="logo" width="218.6" height="49.3" /></a>
       <a href="#" data-target="nav-mobile" className="sidenav-trigger"><i className="material-icons">menu</i></a>
           <div className="">
               <ul className="right hide-on-med-and-down">
@@ -67,14 +67,14 @@ const Navbar = () => {
                   {gjeldeneBruker.emailVerified === true && <li><NavLink to="/Avstemming">Avstemming</NavLink></li>}
                   {gjeldeneBruker.emailVerified === true && <li><NavLink to="/Nominering">Nominering</NavLink></li>}
                   {gjeldeneBruker.emailVerified === true && <li><NavLink to="/BrukerProfil">Profil</NavLink></li>}
-                  { gjeldeneBruker.photoURL && <img src={ gjeldeneBruker.photoURL } onError={handleImageError} width="60" height="60" alt="avatar" className="circle z-depth-2"/> }
+                  { gjeldeneBruker.photoURL && <img src={ gjeldeneBruker.photoURL } onError={handleImageError} width="50" height="50" alt="avatar" className="circle z-depth-2 navBilde" /> }
                   {gjeldeneBruker.emailVerified === true && <button onClick={handleLoggut} className="loggutKnapp btn waves-effect waves-light right">Logg ut</button>}
                   {error && <p>{error}</p>}
               </ul>
               
               <ul id="nav-mobile" className="sidenav">
                 {<li><a className="sidenav-close material-icons right" href="#!">close</a></li>}
-                { gjeldeneBruker.photoURL && <img src={ gjeldeneBruker.photoURL } onError={handleImageError} width="100" height="100" alt="avatar" className="circle z-depth-2"/> }
+                { gjeldeneBruker.photoURL && <img src={ gjeldeneBruker.photoURL } onError={handleImageError} width="100" height="100" alt="avatar" className="circle z-depth-2 sideNavBilde"/> }
                 {gjeldeneBruker && <li><NavLink to="/">Hjem</NavLink></li>}
                   {gjeldeneBruker && <li><NavLink to="/Avstemming">Avstemming</NavLink></li>}
                   {gjeldeneBruker && <li><NavLink to="/Nominering">Nominering</NavLink></li>}

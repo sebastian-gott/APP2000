@@ -61,7 +61,7 @@ export default function Avstemming() {
     return ( 
     <div className="App">
         <div className="row width-margin">
-        <h3>Stem på en kandidat</h3>
+        <h3 className="tittel-tekst">Stem på en kandidat</h3>
         <p>Trykk på "stem" for å stemme på en kandidat. Kandidaten vil da få en stemme</p>
         { brukere && brukere.map(bruker => {
         return(

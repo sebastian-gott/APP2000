@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { useAuth } from "../context/authContext"
+import { db } from '../server/firebase'
 
 
 import 'firebase/auth';
@@ -23,6 +24,7 @@ export function Registrering() {
   //Får å disable ulike ting mens siden loader
   const [loading, setLoading] = useState(false)
   const [checked, setChecked] = useState(false);
+  const [emailSjekk, setEmailSjekk] = useState()
 
   const history = useHistory();
   
@@ -35,7 +37,15 @@ export function Registrering() {
   
    
  }
-   
+   useEffect(() => {
+    db.collection('BrukerInfo')
+    .get()
+    .then(snapshot => {
+        const documents = snapshot.docs.map(doc => doc.data().Email)
+        setEmailSjekk(documents)
+    })
+
+   }, [])
   //Funksjon som settes for <form> sår kjører når det blir submittet
   async function handleSubmit(e) {
     e.preventDefault()
@@ -47,23 +57,28 @@ export function Registrering() {
     if (passordRef.current.value !== passordGjRef.current.value) {
       return setError("Passord matcher ikke")
     }
-    try {
+
+    if(emailSjekk.includes(emailRef.current.value)){
+      return setError("Email allerede i bruk")
+    }
+
+
+  
       //Hvis det ikke er noen feil
       setError("")
       setLoading(true)
       registrer(emailRef.current.value, passordRef.current.value, fornavnRef.current.value, etternavnRef.current.value, checked)
+      sjekkEpost()
       setTimeout(() => {
         history.push("/Logginn")
       }, 3000);
 
-    }catch(registrer){
-      setError("test")
-    }
+ 
 
     
       // Setter en timeout slik at eposten blir lagt i databasen før den forsøker å sende epost
       //Sjekker om eposten finnes og sender en aktiverings epost.
-    sjekkEpost()
+    
   }
       
   
