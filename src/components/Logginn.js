@@ -8,13 +8,16 @@ function Logginn(){
   const emailRef = useRef()
   const passordRef = useRef()
   //Setter i bruk useAuth funksjonen i authContext
-  const { logginn } = useAuth()
+  const { logginn, gjeldeneBruker } = useAuth()
   //Feilmelding state som kan settes der feilmeldinger trenges
   const [error, setError] = useState("")
   //Får å disable ulike ting mens siden loader
   const [loading, setLoading] = useState(false)
-
+  
   const history= useHistory()
+  
+ 
+  
   
   //Funksjon som settes for <form> sår kjører når det blir submittet
   async function handleSubmit(e) {
@@ -22,6 +25,7 @@ function Logginn(){
 
     
     try {
+
     
       //Hvis det ikke er noen feil
       setError("")
@@ -36,7 +40,7 @@ function Logginn(){
     setLoading(false)
   
   }
-  
+
 
     return ( 
     <div className="App">

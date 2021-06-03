@@ -139,19 +139,15 @@ function oppdaterBeskrivelse(beskrivelse) {
 }
 
 function sjekkEpost() {
-  
-  
+  // Setter en timeout slik at eposten blir lagt i databasen før den forsøker å sende epost
+ //Sjekker om eposten finnes og sender en aktiverings epost.
   setTimeout(() => {
-   
     var user = firebase.auth().currentUser;
     user.sendEmailVerification().then(function() {
       setError("Aktiverings epost er sendt til din epost")// Email sent.
       refreshSide();
     })      
-
-
   }, 1000);
-  
   
 }
 

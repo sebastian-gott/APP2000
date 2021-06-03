@@ -85,7 +85,7 @@ export function Registrering() {
       return ( 
     <div className="App" >
       <div class="row">
-            <div className="col s12 offset-m4 m4 card-panel">
+            <div className="col s12 offset-m4 m4 card-panel registrerPanel">
                 <h2>Registrer</h2>
                 {errors && <p>{errors}</p>}
                 {error && <p>{error}</p>}

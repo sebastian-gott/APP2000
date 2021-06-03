@@ -143,7 +143,6 @@ export default function App() {
             
             <div className="col s12 offset-m1 m4 card-panel">
             {/*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" />*/}
-
                 <h3 className="tittel-tekst">Oppdater profil</h3>
                 {error && <p>{error}</p>}
                 <form action="" className="col s12" onSubmit= {handleSubmit} >

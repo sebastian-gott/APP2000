@@ -31,7 +31,7 @@ function GlemtPassord() {
    return (
     <div className="App">
         <div class="row">
-            <div className="col s12 offset-m4 m4 card-panel">
+            <div className="col s12 offset-m4 m4 card-panel glemtPassordPanel">
                 <h2>Glemt Passord</h2>
                 {error && <p>{error}</p>}
                 {message && <p>{message}</p>}
