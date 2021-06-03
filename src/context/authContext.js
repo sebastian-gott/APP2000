@@ -108,11 +108,11 @@ async function nominerBruker(id, fornavn, etternavn){
   return storage.ref('brukere/' + gjeldeneBruker.uid + '/profile.jpg').put(picFile);
  }
 
- function setProfileUrl() {
-  return storage.ref('brukere/' + gjeldeneBruker.uid + '/profile.jpg').getDownloadURL().then((url) => {
-    setPicUrl(url);
+ async function setProfileUrl() {
+   console.log(gjeldeneBruker.uid)
+  await storage.ref('brukere/' + gjeldeneBruker.uid + '/profile.jpg').getDownloadURL().then((url) => {
     gjeldeneBruker.updateProfile({
-      photoURL: picUrl
+      photoURL: url
     })
    })
  }

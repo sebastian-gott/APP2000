@@ -63,6 +63,7 @@ const Navbar = () => {
       <a href="#" data-target="nav-mobile" className="sidenav-trigger"><i className="material-icons">menu</i></a>
           <div className="">
               <ul className="right hide-on-med-and-down">
+                  {gjeldeneBruker.emailVerified === false && <li><NavLink to="/">Hjem</NavLink></li>}
                   {gjeldeneBruker.emailVerified === true && <li><NavLink to="/">Hjem</NavLink></li>}
                   {gjeldeneBruker.emailVerified === false && <li><NavLink to="/Logginn">Logg inn</NavLink></li>}
                   {gjeldeneBruker.emailVerified === false && <li><NavLink to="/Registrering">Registrering</NavLink></li>}
@@ -77,6 +78,7 @@ const Navbar = () => {
               <ul id="nav-mobile" className="sidenav">
                 {<li><a className="sidenav-close material-icons right" href="#!">close</a></li>}
                 { gjeldeneBruker.photoURL && <img src={ gjeldeneBruker.photoURL } onError={handleImageError} width="100" height="100" alt="avatar" className="circle z-depth-2 sideNavBilde"/> }
+                {gjeldeneBruker.emailVerified === false && <li><NavLink to="/">Hjem</NavLink></li>}
                 {gjeldeneBruker.emailVerified === true && <li><NavLink to="/">Hjem</NavLink></li>}
                   {gjeldeneBruker.emailVerified === true && <li><NavLink to="/Avstemming">Avstemming</NavLink></li>}
                   {gjeldeneBruker.emailVerified === true && <li><NavLink to="/Nominering">Nominering</NavLink></li>}

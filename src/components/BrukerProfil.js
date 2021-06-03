@@ -117,8 +117,12 @@ export default function App() {
     }
 
     async function handlePictureUpload(e) {
+      e.preventDefault()
       await uploadBilde(file)
       await setProfileUrl()
+      
+        window.location.reload();
+       
     }
 
     async function handleNominationChange(e) {
