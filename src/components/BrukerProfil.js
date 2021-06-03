@@ -13,7 +13,7 @@ export default function App() {
     const [erNominert, setErNominert] = useState()
     //Får å disable ulike ting mens siden loader
     const [loading, setLoading] = useState(false);
-    const { gjeldeneBruker, oppdaterMail, oppdaterPassord, oppdaterFNavn, oppdaterENavn, oppdaterNom, oppdaterBeskrivelse, nominerbarDisplay, fornavnDisplay, etternavnDisplay } = useAuth();
+    const { gjeldeneBruker, oppdaterMail, oppdaterPassord, oppdaterFNavn, oppdaterENavn, oppdaterNom, oppdaterBeskrivelse, nominerbarDisplay, fornavnDisplay, etternavnDisplay, setProfileUrl } = useAuth();
     const fornavnRef = useRef()
     const etternavnRef = useRef()
     const emailRef = useRef()
@@ -23,17 +23,12 @@ export default function App() {
     const nomineringRef = useRef()
     const bildeRef = useRef()
     const history = useHistory()
-    const [picUrl, setPicUrl] = useState()
+  
 
     
    
 
-    storage.ref('brukere/' + gjeldeneBruker.uid + '/profile.jpg').getDownloadURL().then((url) => {
-        setPicUrl(url);
-        gjeldeneBruker.updateProfile({
-          photoURL: picUrl
-        })
-       })
+
     
     //Sjekker om Eposten har usn.no i seg
     var reg = /^\w+([-+.']\w+)*@(usn.no)/
@@ -123,6 +118,7 @@ export default function App() {
 
     async function handlePictureUpload(e) {
       await uploadBilde(file)
+      await setProfileUrl()
     }
 
     async function handleNominationChange(e) {
@@ -179,6 +175,7 @@ export default function App() {
                               type="email" 
                               defaultValue={gjeldeneBruker.email}
                               ref={emailRef} 
+                              disabled={true}
                               className="validate"
                               required
                             />

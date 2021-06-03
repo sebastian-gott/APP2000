@@ -26,6 +26,7 @@ export function AuthProvider({ children }) {
   const [nominerbarDisplay, setNominerbarDisplay] = useState()
   const [loading, setLoading] = useState(true)
   const [errors, setError] = useState("")
+  const [picUrl, setPicUrl] = useState()
   
 
 function stemBruker(id, valueChange) {
@@ -105,6 +106,15 @@ async function nominerBruker(id, fornavn, etternavn){
 
  function uploadBilde(picFile) {
   return storage.ref('brukere/' + gjeldeneBruker.uid + '/profile.jpg').put(picFile);
+ }
+
+ function setProfileUrl() {
+  return storage.ref('brukere/' + gjeldeneBruker.uid + '/profile.jpg').getDownloadURL().then((url) => {
+    setPicUrl(url);
+    gjeldeneBruker.updateProfile({
+      photoURL: picUrl
+    })
+   })
  }
 
  function oppdaterMail(email) {
@@ -205,7 +215,8 @@ function refreshSide() {
     stemBruker,
     brukerHarStemt,
     sjekkEpost,
-    votedOn
+    votedOn,
+    setProfileUrl
   }
 
   return (
